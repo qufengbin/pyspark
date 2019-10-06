@@ -5,14 +5,14 @@
       <paths name="binguo">
         <serverdata>
           <mappings>
-            <mapping deploy="/root/pyspark" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/tmp/pycharm_project_962" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="root@185.247.182.21:22">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/pycharm_project_961" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/pycharm_project_430" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

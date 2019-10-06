@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="b611a186-4850-4e69-b13d-a9b8a851d2cd" name="binguo" url="http://185.247.182.21">
-        <fileTransfer host="185.247.182.21" port="22" rootFolder="/root/pyspark" accessType="SFTP">
+        <fileTransfer host="185.247.182.21" port="22" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
