@@ -1,6 +1,4 @@
-import os
 import sys
-import logging
 sys.path.append('/usr/local/spark/python/')
 try:
     from pyspark import SparkContext
