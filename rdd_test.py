@@ -151,11 +151,47 @@ sc = SparkContext()
 # print('maxbycity: ',maxbycity.collect())
 
 # sortByKey()
-locwtemps = sc.parallelize(['Beijing,71|72|73|72|70','Shanghai,46|42|40|37|39','Tianjin,50|48|51|43|44'])
-kvpairs = locwtemps.map(lambda x: x.split(','))
-locwtemplist = kvpairs.mapValues(lambda x: x.split('|')).mapValues(lambda x: [int(s) for s in x])
-locwtemps = kvpairs.flatMapValues(lambda x: x.split('|')).map(lambda x:(x[0],int(x[1])))
-sortedbykey = locwtemps.sortByKey()
-print('sortedbykey: ',sortedbykey.collect())
-sortedbyval = locwtemps.map(lambda x: (x[1],x[0])).sortByKey(ascending=False)
-print('sortedbyval: ',sortedbyval.collect())
+# locwtemps = sc.parallelize(['Beijing,71|72|73|72|70','Shanghai,46|42|40|37|39','Tianjin,50|48|51|43|44'])
+# kvpairs = locwtemps.map(lambda x: x.split(','))
+# locwtemplist = kvpairs.mapValues(lambda x: x.split('|')).mapValues(lambda x: [int(s) for s in x])
+# locwtemps = kvpairs.flatMapValues(lambda x: x.split('|')).map(lambda x:(x[0],int(x[1])))
+# sortedbykey = locwtemps.sortByKey()
+# print('sortedbykey: ',sortedbykey.collect())
+# sortedbyval = locwtemps.map(lambda x: (x[1],x[0])).sortByKey(ascending=False)
+# print('sortedbyval: ',sortedbyval.collect())
+
+# 连接操作
+stores = sc.parallelize([(100,'Beijing'),(101,'Shanghai'),(102,'Tianjin'),(103,'Taiyuan')])
+salespeople = sc.parallelize([(1,'Tom',100),(2,'Karen',100),(3,'Paul',101),(4,'Jimmy',102),(5,'Jack',None)])
+
+# join()
+# print(salespeople.keyBy(lambda x: x[2]).join(stores).collect())
+
+# leftOuterJoin()
+# leftjoin = salespeople.keyBy(lambda x: x[2]).leftOuterJoin(stores)
+# print("leftjoin: ",leftjoin.collect())
+# print(leftjoin.filter(lambda x: x[1][1] is None).map(lambda x: "salesperson " + x[1][0][1] + " has no store").collect())
+
+# rightOuterJoin()
+# print(
+# salespeople.keyBy(lambda x: x[2])\
+#     .rightOuterJoin(stores)\
+#     .filter(lambda x: x[1][0] is None)\
+#     .map(lambda x: x[1][1] + " store has no salespeople")\
+#     .collect()
+# )
+
+# fullOuterJoin()
+# print(
+#     salespeople.keyBy(lambda x: x[2]).fullOuterJoin(stores).filter(lambda x: x[1][0] is None or x[1][1] is None).collect()
+# )
+
+# cogroup()
+# print(salespeople.keyBy(lambda x: x[2]).cogroup(stores).take(1))
+# print('----------------')
+# print(salespeople.keyBy(lambda x: x[2]).cogroup(stores).mapValues(lambda x: [item for sublist in x for item in sublist]).collect())
+
+# cartesian()
+print(salespeople.keyBy(lambda x: x[2]).cartesian(stores).collect())
+print('----------------')
+print(salespeople.keyBy(lambda x: x[2]).cartesian(stores).count())
